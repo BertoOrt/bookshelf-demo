@@ -1,0 +1,38 @@
+<h2>{{title}}</h2>
+
+<ul>
+  {{#each list}}
+    <li>
+      <a href="/{{../route}}/{{this.id}}">{{this.name}}</a>
+      {{#if this.languages}}
+        {{#if this.languages.[0]}}
+        Languages:
+          {{#each this.languages}}
+            {{this.name}}
+          {{/each}}
+        {{else}}
+          This puppy knows no languages
+        {{/if}}
+      {{else}}
+        {{#if this.puppies.[0]}}
+          Puppies:
+          {{#each this.puppies}}
+            {{this.name}}
+          {{/each}}
+        {{else}}
+          No puppies know this language
+        {{/if}}
+      {{/if}}
+      <form action="/{{../route}}/delete/{{this.id}}" method="post">
+        <button type="submit" name="button">X</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
+
+<a href="/{{route}}/add">Add a {{title}}</a>
+<br>
+<br>
+
+<a href="/">Home</a>
+<a href="/{{otherRoute}}">{{otherRoute}}</a>
