@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Puppies = require('../models').puppies;
-var Languages = require('../models').languages;
-var PuppiesLanguages = require('../models').puppies_languages;
+var db = require('../db/api');
 
 router.get('/', function(req, res, next) {
-  Puppies.fetchAll({withRelated: 'languages'}).then(function (collection) {
-    var puppies = collection.toJSON();
+  db.Puppies.get().then(function (puppies) {
     res.render('showAll', {
       list: puppies,
       title: "Puppies",
@@ -21,14 +18,11 @@ router.get('/add', function (req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  Puppies.where({id: req.params.id}).fetch().then(function (collection) {
-    var puppy = collection.toJSON();
-    return Languages.fetchAll().then(function (collection) {
-      var languages = collection.toJSON();
+  db.Puppies.get(req.params.id).then(function (puppy) {
+    return db.Languages.get().then(function (languages) {
       return { puppy: puppy, languages: languages}
     })
   }).then(function (data) {
-    console.log(data);
     res.render('show', {
       item: data.puppy,
       list: data.languages,
@@ -38,8 +32,23 @@ router.get('/:id', function(req, res, next) {
   })
 });
 
+router.get('/edit/:id', function(req, res, next) {
+  db.Puppies.get(req.params.id).then(function (puppy) {
+    return db.Languages.get().then(function (languages) {
+      return { puppy: puppy, languages: languages}
+    })
+  }).then(function (data) {
+    res.render('edit', {
+      item: data.puppy,
+      list: data.languages,
+      route: 'puppies',
+      otherRoute: 'languages',
+    });
+  })
+});
+
 router.post('/', function (req, res, next) {
-  Puppies.forge({name: req.body.name}).save().then(function (message) {
+  db.Puppies.insert({name: req.body.name}).then(function (message) {
     res.redirect('/puppies');
   });
 });
@@ -49,17 +58,21 @@ router.post('/edit/:id', function (req, res ,next) {
     language_id: req.body.id,
     puppy_id: req.params.id
   }
-  PuppiesLanguages.forge(data).save().then(function (message) {
-    console.log(message);
-    res.redirect('/puppies');
-  });
+  var puppy = {
+    name: req.body.name,
+  }
+  db.Puppies.update(req.params.id, puppy).then(function () {
+    if (data.language_id) {
+      return db.PuppiesLanguages.insert(data);
+    }
+  }).then(function (message) {
+    res.redirect('/puppies/' + data.puppy_id);
+  })
 });
 
 router.post('/delete/:id', function (req, res ,next) {
-  Puppies.where({id: req.params.id}).destroy().then(function (message) {
-    return PuppiesLanguages.where({puppy_id:req.params.id}).destroy()
-  }).then(function (message) {
-    res.redirect('/puppies');
+  db.Puppies.destroy(req.params.id, req.body.id).then(function() {
+    res.redirect('/puppies/');
   })
 });
 

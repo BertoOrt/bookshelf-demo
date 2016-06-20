@@ -3,8 +3,33 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='shortcut icon' type="image/png" href='https://img.stackshare.io/service/3376/knex.png' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   </head>
   <body>
+    <ul id="sideNav" class="side-nav fixed">
+      <li class="logo">
+        <a href="/">
+          <img src="http://www.thedogtrainingsecret.com/images/guide-to-puppy-training.JPG" alt="logo" />
+        </a>
+      </li>
+      <li><a href="/puppies">Puppies</a></li>
+      <li><a href="/languages">Programming Languages</a></li>
+    </ul>
+    <ul id="sideBar" class="side-nav">
+      <li class="logo">
+        <a href="/">
+          <img src="http://www.thedogtrainingsecret.com/images/guide-to-puppy-training.JPG" alt="logo" />
+        </a>
+      </li>
+      <li><a href="/puppies">Puppies</a></li>
+      <li><a href="/languages">Programming Languages</a></li>
+    </ul>
     {{{body}}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/javascripts/app.js"></script>
   </body>
 </html>

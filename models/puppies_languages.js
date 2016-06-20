@@ -5,13 +5,9 @@ var PuppiesLanguages = bookshelf.Model.extend({
   puppies: function () {
     return this.hasMany('Puppies')
   },
-  puppies() {
-    return this.belongsTo('Puppies');
-  },
-
-  successCriterion() {
-    return this.belongsTo('Languages');
-  },
+  languages: function () {
+    return this.hasMany('Languages')
+  }
 });
 
 module.exports = bookshelf.model('PuppiesLanguages', PuppiesLanguages);

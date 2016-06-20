@@ -1,4 +1,60 @@
-<h2>Puppies Who Code</h2>
+<nav class="indigo">
+  <a href="/" class="brand-logo">Puppies Who Code</a>
+  <a href="#" data-activates="sideBar" class="button-collapse right"><i class="material-icons">menu</i></a>
+</nav>
 
-<a href="/puppies">Puppies</a>
-<a href="/languages">Programming Languages</a>
+<div class="container">
+  <div class="row">
+    {{#if search}}
+      <h4>Search Results for {{search}}: </h4>
+      {{#if puppies}}
+        {{#each puppies}}
+         <div class="col s4">
+           <div class="card">
+             <div class="card-image">
+               <img src="{{this.image}}">
+             </div>
+             <div class="card-content">
+              {{this.name}}
+             </div>
+             <div class="card-action">
+               <a href="/puppies/{{this.id}}">More Info</a>
+             </div>
+           </div>
+         </div>
+         {{/each}}
+       {{/if}}
+       {{#if languages}}
+         {{#each languages}}
+          <div class="col s4">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{this.image}}">
+              </div>
+              <div class="card-content">
+               {{this.name}}
+              </div>
+              <div class="card-action">
+                <a href="/languages/{{this.id}}">More Info</a>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        {{/if}}
+    {{else}}
+      <br>
+      <img class="responsive-img" src="http://technikyle.com/bookshelf.png" alt="bookshelf" />
+      <p>
+        This app is an example of a many-to-many relationship using bookshelf.
+        Check out the <a href="https://github.com/bertoort/bookshelf-demo">code</a> for more information.
+      </p>
+    {{/if}}
+    <form action="/" method="get">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">search</i>
+        <input type="text" name="search" value="{{search}}">
+        <label>Search</label>
+      </div>
+    </form>
+  </div>
+</div>
