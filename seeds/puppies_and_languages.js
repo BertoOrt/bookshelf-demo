@@ -44,7 +44,7 @@ exports.seed = function(knex, Promise) {
         name: "Ruby",
         bio: "Ruby is a dynamic, reflective, object-oriented, general-purpose programming language. It was designed and developed in the mid-1990s by Yukihiro \"Matz\" Matsumoto in Japan.",
         year: 1995,
-        image: "https://upload.wikimedia.org/wikipedia/en/8/88/Java_logo.png"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/200px-Ruby_logo.svg.png"
       }),
       knex('languages').insert({
         name: "Golang",
